@@ -7,12 +7,8 @@ import (
 
 func TestFormatInput(t *testing.T) {
 	expected := [2][]int{
-		[]int{
-			1, 2, 3, 3, 3, 4,
-		},
-		[]int{
-			3, 3, 3, 4, 5, 9,
-		},
+		{1, 2, 3, 3, 3, 4},
+		{3, 3, 3, 4, 5, 9},
 	}
 
 	input, _ := formatInput("sample.txt")
