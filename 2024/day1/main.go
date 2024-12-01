@@ -12,36 +12,41 @@ import (
 )
 
 func main() {
-	input, err := formatInput("input.txt")
-	if err != nil {
-		return
-	}
-
+	input := parseInput("input.txt")
 	fmt.Printf("Part 1: %d\n", part1(input))
 	fmt.Printf("Part 2: %d\n", part2(input))
 }
 
-func part1(input [2][]int) int {
+func part1(input []string) int {
+	fmtInput, err := formatInput(input)
+	if err != nil {
+		return 0
+	}
+
 	distance := 0
-	for i := 0; i < len(input[0]); i++ {
-		distance += int(
-			math.Abs(float64(input[1][i]) - float64(input[0][i])))
+	for i := 0; i < len(fmtInput[0]); i++ {
+		distance += int(math.Abs(float64(fmtInput[0][i]) - float64(fmtInput[1][i])))
 	}
 
 	return distance
 }
 
-func part2(input [2][]int) int {
+func part2(input []string) int {
+	fmtInput, err := formatInput(input)
+	if err != nil {
+		return 0
+	}
+
 	score := 0
-	for _, leftNum := range input[0] {
-		i := slices.Index(input[1], leftNum)
+	for _, leftNum := range fmtInput[0] {
+		i := slices.Index(fmtInput[1], leftNum)
 		if i == -1 {
 			continue
 		}
 
 		nbOccurrences := 1
-		for ; i+1 < len(input[1]); i++ {
-			rightNum := input[1][i+1]
+		for ; i+1 < len(fmtInput[1]); i++ {
+			rightNum := fmtInput[1][i+1]
 			if rightNum != leftNum {
 				break
 			}
@@ -52,8 +57,7 @@ func part2(input [2][]int) int {
 	return score
 }
 
-func formatInput(fileName string) ([2][]int, error) {
-	input := parseInput(fileName)
+func formatInput(input []string) ([2][]int, error) {
 	left := []int{}
 	right := []int{}
 

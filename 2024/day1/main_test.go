@@ -10,32 +10,38 @@ func TestFormatInput(t *testing.T) {
 		{1, 2, 3, 3, 3, 4},
 		{3, 3, 3, 4, 5, 9},
 	}
+	input := parseInput("sample.txt")
 
-	input, _ := formatInput("sample.txt")
+	fmtInput, err := formatInput(input)
 
-	if slices.Compare(expected[0], input[0]) != 0 {
-		t.Fatalf("Expected %d, got %d", expected[0], input[0])
+	if err != nil {
+		t.Fatalf("Unexpected error %s", err)
 	}
-	if slices.Compare(expected[1], input[1]) != 0 {
-		t.Fatalf("Expected %d, got %d", expected[1], input[1])
+	if slices.Compare(expected[0], fmtInput[0]) != 0 {
+		t.Fatalf("Expected %d, got %d", expected[0], fmtInput[0])
+	}
+	if slices.Compare(expected[1], fmtInput[1]) != 0 {
+		t.Fatalf("Expected %d, got %d", expected[1], fmtInput[1])
 	}
 }
 
 func TestPart1(t *testing.T) {
-	input, _ := formatInput("sample.txt")
+	input := parseInput("sample.txt")
 	expected := 11
 
 	res := part1(input)
+
 	if res != expected {
 		t.Fatalf("Expected %d, got %d", expected, res)
 	}
 }
 
 func TestPart2(t *testing.T) {
-	input, _ := formatInput("sample.txt")
+	input := parseInput("sample.txt")
 	expected := 31
 
 	res := part2(input)
+
 	if res != expected {
 		t.Fatalf("Expected %d, got %d", expected, res)
 	}
