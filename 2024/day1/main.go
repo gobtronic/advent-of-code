@@ -7,22 +7,15 @@ import (
 	"math"
 	"os"
 	"slices"
-	"sort"
 	"strconv"
 	"strings"
 )
 
 func main() {
-	input, err := formatInput()
+	input, err := formatInput("input.txt")
 	if err != nil {
 		return
 	}
-	sort.Slice(input[0], func(i, j int) bool {
-		return input[0][i] < input[0][j]
-	})
-	sort.Slice(input[1], func(i, j int) bool {
-		return input[1][i] < input[1][j]
-	})
 
 	fmt.Printf("Part 1: %d\n", part1(input))
 	fmt.Printf("Part 2: %d\n", part2(input))
@@ -59,8 +52,8 @@ func part2(input [2][]int) int {
 	return score
 }
 
-func formatInput() ([2][]int, error) {
-	input := parseInput()
+func formatInput(fileName string) ([2][]int, error) {
+	input := parseInput(fileName)
 	left := []int{}
 	right := []int{}
 
@@ -75,14 +68,17 @@ func formatInput() ([2][]int, error) {
 		right = append(right, rightPart)
 	}
 
+	slices.Sort(left)
+	slices.Sort(right)
+
 	return [2][]int{
 		left, right,
 	}, nil
 }
 
-func parseInput() []string {
+func parseInput(fileName string) []string {
 	lines := []string{}
-	file, err := os.Open("input.txt")
+	file, err := os.Open(fileName)
 	if err != nil {
 		return lines
 	}
