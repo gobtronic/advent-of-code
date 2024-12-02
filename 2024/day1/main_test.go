@@ -17,10 +17,10 @@ func TestFormatInput(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Unexpected error %s", err)
 	}
-	if slices.Compare(expected[0], fmtInput[0]) != 0 {
+	if !slices.Equal(expected[0], fmtInput[0]) {
 		t.Fatalf("Expected %d, got %d", expected[0], fmtInput[0])
 	}
-	if slices.Compare(expected[1], fmtInput[1]) != 0 {
+	if !slices.Equal(expected[1], fmtInput[1]) {
 		t.Fatalf("Expected %d, got %d", expected[1], fmtInput[1])
 	}
 }
